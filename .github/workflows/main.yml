@@ -11,28 +11,35 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9' # Specify Python version
+          python-version: '3.9'
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      
+      - name: Run Data Preprocessing
+        run: python src/preprocess_data.py
+      
+
       - name: Run Model Training
         run: python src/train_model.py
 
-      - name: Run Fairness Validation # The critical gatekeeper step
+      - name: Run Fairness Validation
         run: python src/validate_fairness.py
 
-      # This step will only run if the validation script passes (exits with 0)
-      - name: If Passed, Upload Model as Artifact
+      # This step will only run if the validation script passes
+      - name: If Passed, Upload Model and Encoder as Artifacts
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: loan-default-model
-          path: ${{ github.workspace }}/loan_default_model.joblib
+          name: recidivism-model-artifacts
+          path: |
+            ${{ github.workspace }}/recidivism_model.joblib
+            ${{ github.workspace }}/one_hot_encoder.joblib
