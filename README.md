@@ -154,10 +154,10 @@ graph TD
     classDef failure fill:#FADBD8,stroke:#C0392B,stroke-width:2px;
     classDef artifact fill:#EAECEE,stroke:#839192,stroke-width:2px;
 
-    %% Define the chart nodes (blocks)
-    A[<b>Developer Pushes Code</b><br/>(git push origin main)]:::trigger
-    B(GitHub Action Triggered<br/>on a new Runner)
-    C{<b>Setup Phase</b><br/>- Checkout Code<br/>- Install Python<br/>- Install Dependencies}:::setup
+    %% Define the chart nodes (blocks) - Simplified text for compatibility
+    A[<b>Developer Pushes Code</b><br/>git push to main branch]:::trigger
+    B(GitHub Action Triggered<br/>on a New Runner)
+    C{<b>Setup Phase</b><br/>1. Checkout Code<br/>2. Install Python<br/>3. Install Dependencies}:::setup
     D[<b>Data Processing</b><br/>Run preprocess_data.py]:::process
     E[<b>Model Training</b><br/>Run train_model.py]:::process
     F{<b>The Fairness Gate</b><br/>Run validate_fairness.py}:::gate
