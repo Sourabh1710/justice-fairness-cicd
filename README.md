@@ -141,3 +141,41 @@ Follow these steps to set up and run the project on your local machine.
 ## 👤 Author
 **Sourabh Sonker**                                                                                                                 
 **Aspiring Data Scientist**
+
+---
+```mermaid
+graph TD
+    %% Define Styles for different node types
+    classDef trigger fill:#D5F5E3,stroke:#2ECC71,stroke-width:2px;
+    classDef setup fill:#EBF5FB,stroke:#3498DB,stroke-width:2px;
+    classDef process fill:#FDEDEC,stroke:#E74C3C,stroke-width:2px;
+    classDef gate fill:#FDEBD0,stroke:#F39C12,stroke-width:2px;
+    classDef success fill:#E8F8F5,stroke:#1ABC9C,stroke-width:2px;
+    classDef failure fill:#FADBD8,stroke:#C0392B,stroke-width:2px;
+    classDef artifact fill:#EAECEE,stroke:#839192,stroke-width:2px;
+
+    %% Define the chart nodes (blocks)
+    A[<b>Developer Pushes Code</b><br/>(git push origin main)]:::trigger
+    B(GitHub Action Triggered<br/>on a new Runner)
+    C{<b>Setup Phase</b><br/>- Checkout Code<br/>- Install Python<br/>- Install Dependencies}:::setup
+    D[<b>Data Processing</b><br/>Run preprocess_data.py]:::process
+    E[<b>Model Training</b><br/>Run train_model.py]:::process
+    F{<b>The Fairness Gate</b><br/>Run validate_fairness.py}:::gate
+    G{Is Bias <= Threshold?}
+    H[<b>Pipeline Fails (Red X)</b><br/>Biased model is discarded]:::failure
+    I[<b>Pipeline Succeeds (Green ✓)</b>]:::success
+    J[<b>Upload Model & Encoder<br/>as Artifacts</b>]:::artifact
+
+    %% Connect the blocks with arrows
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G -- No --> H
+    G -- Yes --> I
+    I --> J
+```
+
+---
