@@ -1,0 +1,13 @@
+# .gitignore
+
+# Python
+__pycache__/
+*.pyc
+venv/
+*.env
+
+# Data
+*.csv
+!data/processed/compas_cleaned.csv # This tells git to NOT ignore our one processed file
+
+compas-scores-two-years.csv
